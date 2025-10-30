@@ -26,9 +26,9 @@ li {
     list-style: none;
     display: grid;
     place-items: center;
-    font-size: 5px;
+    font-size: 10px;
     color: white;
-    font-family: "sans-serif";
+    font-family: "Times New Roman";
 }
 
 .box {

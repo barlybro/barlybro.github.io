@@ -480,7 +480,7 @@ function stalemate() {
     }, 100)
 }
 
-function end_menu(){
+function end_menu() {
     $("#end_menu").css("display", "block")
 }
 
