@@ -28,6 +28,7 @@ li {
     place-items: center;
     font-size: 5px;
     color: white;
+    font-family: "sans-serif";
 }
 
 .box {
