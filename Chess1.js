@@ -14,7 +14,7 @@ function win1(){
 
 p_dist=[1,1,1,1,1]
 p_max=47
-rand_ar()
+//rand_ar()
 
 function rand_ar(){
     ab=ar_sum(p_dist)
@@ -558,7 +558,7 @@ document.querySelectorAll('.box').forEach(item => {
                 if (aside < 7 && aup < 800) {
                     document.getElementById(`b${a + 100 + 2}`).style.backgroundColor = 'green'
                 }
-                if (aside < 7 && aup > 200) {
+                if (aside < 7 && aup > 100) {
                     document.getElementById(`b${a - 100 + 2}`).style.backgroundColor = 'green'
                 }
                 if (aside < 8 && aup < 700) {
