@@ -14,7 +14,7 @@ function win1(){
 
 p_dist=[1,1,1,1,1]
 p_max=47
-//rand_ar()
+rand_ar()
 
 function rand_ar(){
     ab=ar_sum(p_dist)
