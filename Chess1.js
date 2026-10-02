@@ -3,7 +3,7 @@ function print(param) {
 }
 insert_board = false
 tg = "b601"
-p_max = 47
+p_max = 20//47
 whitebot=0
 b1 = [
     ["Bking", "", "", "", "", "", "", ""],
@@ -38,6 +38,7 @@ function win1() {
         
     }
     bl_move();
+    $("#bt").attr("disabled",false)
 }
 
 function start_solve() {
