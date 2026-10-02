@@ -1,12 +1,38 @@
-tg = ""
+function print(param) {
+    console.log(param)
+}
+insert_board = false
+tg = "b601"
+p_max = 47
+whitebot=0
+b1 = [
+    ["Bking", "", "", "", "", "", "", ""],
+    ["Wpawn", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "Wking", ""],
+]
+
+function input_board() {
+    for (let i = 8; i > 0; i--) {
+        for (let j = 1; j < 9; j++) {
+            aa = b1[8 - i][j - 1]
+            if (aa != "") {
+                $("#b" + i + "0" + j).text(aa)
+            }
+        }
+    }
+}
+
 
 function t_board() {
     tg = "b" + (Math.floor(Math.random() * 8) + 1) + 0 + (Math.floor(Math.random() * 8) + 1);
 }
-t_board()
 
 function win1() {
-    console.log(1);
     if ($("#" + tg).text().trim() == "Bking".trim()) {
         setTimeout(location.reload(), 1000);
         
@@ -14,10 +40,11 @@ function win1() {
     bl_move();
 }
 
+function start_solve() {
+   // setInterval(function(){wb()},1000)
+   wb()
+}
 p_dist = [1, 1, 1, 1, 1]
-p_max = 47
-rand_ar()
-whitebot = 1
 
 function rand_ar() {
     ab = ar_sum(p_dist)
@@ -28,7 +55,7 @@ function rand_ar() {
 }
 
 function wb() {
-    aa = find_bking()
+    find_bking()
 }
 
 function find_bking() {
@@ -38,22 +65,273 @@ function find_bking() {
             if ($(this).text().trim() == "Bking") { tg2 = $(this).attr("id") }
         })
     //b505  607
-    console.log(tg2, tg)
-    next1=""
-    arr1=[[Number(tg2[1]),Number(tg2[3])],[Number(tg[1]),Number(tg[3])]]
-    aa=Math.sign(arr1[1][0]-arr1[0][0])*Math.ceil(Math.abs(arr1[1][0]-arr1[0][0])/8)
-    bb1=Math.sign(arr1[1][1]-arr1[0][1])*Math.ceil(Math.abs(arr1[1][1]-arr1[0][1])/8)
-    console.log(bb1)
-    tg3="b"+(arr1[0][0]+aa)+"0"+(arr1[0][1]+bb1)
+    next1 = ""
+    arr1 = [
+        [Number(tg2[1]), Number(tg2[3])],
+        [Number(tg[1]), Number(tg[3])]
+    ]
+    aa = Math.sign(arr1[1][0] - arr1[0][0]) * Math.ceil(Math.abs(arr1[1][0] - arr1[0][0]) / 8)
+    bb1 = Math.sign(arr1[1][1] - arr1[0][1]) * Math.ceil(Math.abs(arr1[1][1] - arr1[0][1]) / 8)
+    tg3 = "b" + (arr1[0][0] + aa) + "0" + (arr1[0][1] + bb1)
     
-    if(is_empty(tg3)){
-        return 1
+    if (is_empty(tg3)) {
+        list_of_moves = []
+        poss_pieces = []
+        //$("#b701").trigger("click")
+        $(".box").each(
+            function() {
+                if ($(this).text()[0] == "W") { poss_pieces.push($(this).attr("id")) }
+            })
+        //  console.log(poss_pieces2)
+        for (i = 0; i < poss_pieces.length; i++) {
+            poss_to = []
+            $("#" + poss_pieces[i]).trigger("click")
+            $(".box").each(function() {
+                if ($(this).css("background-color") == "rgb(0, 128, 0)") {
+                    poss_to.push($(this).attr("id"))
+                }
+            })
+            $("#" + poss_pieces[i]).trigger("click")
+            if (poss_to.length > 0) {
+                for (j = 0; j < poss_to.length; j++) {
+                    
+                    if (poss_to[j] != tg3) {
+                        list_of_moves.push([poss_pieces[i], poss_to[j]])
+                    }
+                }
+            }
+            
+        }
+        chosen_move = list_of_moves[Math.floor(Math.random() * (list_of_moves.length - 0 + 1) + 0)]
+        print(list_of_moves, 36852)
+        print([chosen_move, 9999])
+        move_piece_from_to_coords(chosen_move[0], chosen_move[1])
+        
+    }
+    else {
+        chosen_move = w_move([tg3], 1, tg2)
+        print([chosen_move, 777])
+        move_piece_from_to_coords(chosen_move[0], chosen_move[1])
     }
 }
 
-function is_empty(coor){
-    return true
+pos_m = gen_pos_m()
+
+function gen_pos_m() {
+    op = {}
+    op["Wpawn"] = [
+        [1, 0]
+    ]
+    op["Wknight"] = [
+        [-1, 2],
+        [1, 2],
+        [2, 1],
+        [2, -1],
+        [1, -2],
+        [-1, -2],
+        [-2, -1],
+        [-2, 1]
+    ]
+    op["Wking"] = [
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+        [-1, -1],
+        [-1, 0],
+        [-1, 1]
+    ]
+    op1 = []
+    for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+            if (y == 0 && x > 0) {
+                op1.push([y, x])
+                op1.push([y, -x])
+            }
+            if (x == 0 && y > 0) {
+                op1.push([y, x])
+                op1.push([-y, x])
+            }
+        }
+    }
+    op["Wrook"] = op1
+    op1 = []
+    for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+            if (y == x && x > 0) {
+                op1.push([y, x])
+                op1.push([y, -x])
+                op1.push([-y, x])
+                op1.push([-y, -x])
+            }
+        }
+    }
+    op["Wbishop"] = op1
+    op["Wqueen"] = op["Wrook"].concat(op["Wbishop"])
 }
+
+function w_move(coor_arr, c1, tg2) {
+    list_of_moves = []
+    print([coor_arr, 7525])
+    if (coor_arr[0] == tg2) {
+        list_of_moves22 = []
+        poss_pieces22 = []
+        //$("#b701").trigger("click")
+        $(".box").each(
+            function() {
+                if ($(this).text()[0] == "W") { poss_pieces22.push($(this).attr("id")) }
+            })
+        //  console.log(poss_pieces2)
+        for (i = 0; i < poss_pieces22.length; i++) {
+            poss_to22 = []
+            $("#" + poss_pieces22[i]).trigger("click")
+            $(".box").each(function() {
+                if ($(this).css("background-color") == "rgb(0, 128, 0)") {
+                    poss_to22.push($(this).attr("id"))
+                }
+            })
+            $("#" + poss_pieces22[i]).trigger("click")
+            if (poss_to22.length > 0) {
+                for (j = 0; j < poss_to22.length; j++) {
+                    
+                    if (poss_to22[j] != tg2) {
+                        list_of_moves22.push([poss_pieces22[i], poss_to22[j]])
+                    }
+                }
+            }
+            
+            
+        }
+        return list_of_moves22[Math.floor(Math.random() * (list_of_moves22.length - 1))]
+    }
+    for (i = 0; i < coor_arr.length; i++) {
+        poss_to = []
+        $("#" + coor_arr[i]).trigger("click")
+        $(".box").each(function() {
+            if ($(this).css("background-color") == "rgb(0, 128, 0)") {
+                poss_to.push($(this).attr("id"))
+            }
+        })
+        $("#" + coor_arr[i]).trigger("click")
+        if (poss_to.length > 0) {
+            for (j = 0; j < poss_to.length; j++) {
+                
+                if (poss_to[j] != tg3) {
+                    list_of_moves.push([coor_arr[i], poss_to[j]])
+                }
+            }
+        }
+        
+    }
+    if (list_of_moves.length > 0) {
+        print([list_of_moves, 8394])
+        return list_of_moves[Math.floor(Math.random() * (list_of_moves.length - 1))]
+    }
+    else {
+        if (c1 < 500) {
+            cb = c1 + 1
+            return w_move(find_invalids([coor_arr]), cb, tg2)
+        }
+        
+    }
+}
+
+
+p_i = {
+    "Wking": [
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+        [-1, -1],
+        [-1, 0],
+        [-1, 1]
+    ],
+    "Wqueen": [
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+        [-1, -1],
+        [-1, 0],
+        [-1, 1]
+    ],
+    "Wbishop": [
+        [1, 1],
+        [1, -1],
+        [-1, 1],
+        [-1, -1]
+    ],
+    "Wknight": [
+        [-1, 2],
+        [1, 2],
+        [2, 1],
+        [2, -1],
+        [1, -2],
+        [-1, -2],
+        [-2, -1],
+        [-2, 1]
+    ],
+    "Wrook": [
+        [1, 0],
+        [0, 1],
+        [-1, 0],
+        [0, -1]
+    ],
+    "Wpawn": [
+        [1, 0]
+    ]
+    
+}
+
+function flatten(ary) {
+    var ret = [];
+    for (var i = 0; i < ary.length; i++) {
+        if (Array.isArray(ary[i])) {
+            ret = ret.concat(flatten(ary[i]));
+        } else {
+            ret.push(ary[i]);
+        }
+    }
+    return ret;
+}
+
+function find_invalids(coor_arr1) {
+    invalids = []
+    coor_arr = flatten(coor_arr1)
+    print([coor_arr, 545])
+    for (let i = 0; i < coor_arr.length; i++) {
+        name1 = $("#" + coor_arr[i]).text().trim()
+        invalids = invalids.concat(find_possible(coor_arr[i], p_i[name1]))
+        
+    }
+    return invalids
+}
+
+function find_possible(cor, moves) {
+    moves1 = []
+    n = [Number(cor[1]), Number(cor[3])]
+    print([n, 555])
+    print([cor, moves, 676])
+    for (let i = 0; i < moves.length; i++) {
+        if (((n[0] + moves[i][0]) >= 1) && ((n[0] + moves[i][0]) <= 8) && ((n[1] + moves[i][1]) >= 1) && ((n[0] + moves[i][1]) <= 8)) {
+            print([cor, moves[i], 899])
+            moves1.push("b" + (n[0] + moves[i][0]) + "0" + (n[1] + moves[i][1]))
+        }
+    }
+    print([moves1,62957])
+    return moves1
+}
+
+function is_empty(coor) {
+    if ($("#" + coor).text() == "") {
+        return true
+    }
+}
+
 function ar_sum(ar1) {
     return ar1.reduce((a, b) => a + b, 0)
 }
@@ -88,7 +366,7 @@ function add_pieces() {
         }
     }
 }
-add_pieces()
+
 // Inserting the Images
 function insertImage() {
     
@@ -109,7 +387,23 @@ function insertImage() {
         }
     })
 }
-console.log(77)
+if (insert_board) {
+    input_board()
+}
+else {
+    t_board()
+    rand_ar()
+    pieces = [
+        ["Wking", 1],
+        ["Bking", 1],
+        ["Wqueen", p_dist[0]],
+        ["Wbishop", p_dist[1]],
+        ["Wknight", p_dist[2]],
+        ["Wrook", p_dist[3]],
+        ["Wpawn", p_dist[4]]
+    ]
+    add_pieces()
+}
 insertImage()
 
 
@@ -133,7 +427,7 @@ function coloring() {
         if (a % 2 !== 0) {
             color.style.backgroundColor = 'rgb(100, 75, 43)'
         }
-        if (getId==tg){
+        if (getId == tg) {
             color.style.backgroundColor = "orange"
         }
         // if (a % 2 == 0) {
@@ -823,7 +1117,6 @@ function choose_moves(BorW) {
         function() {
             if ($(this).text()[0] == BorW) { poss_pieces.push($(this).attr("id")) }
         })
-    console.log(poss_pieces, 77);
     //  console.log(poss_pieces2)
     for (i = 0; i < poss_pieces.length; i++) {
         poss_to = []
@@ -866,7 +1159,10 @@ function mov_dist(c1, c2) {
 
 function move_piece_from_to_coords(co1, co2) {
     $("#" + co1).trigger("click")
-    $("#" + co2).trigger("click")
+    
+    
+    setTimeout(function() { $("#" + co2).trigger("click") }, 250)
+    print([co1, co2, 999]);
 }
 
 if (whitebot == 1) {
