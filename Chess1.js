@@ -3,15 +3,16 @@ function print(param) {
 }
 insert_board = false
 tg = "b601"
-if(localStorage.getItem("p_max")===null){
-    p_max=47
-localStorage.setItem('p_max',p_max)
-
+lm = ""
+if (localStorage.getItem("p_max") === null) {
+    p_max = 47
+    localStorage.setItem('p_max', p_max)
+    
 }
-else{
-    p_max=localStorage.getItem("p_max")
+else {
+    p_max = localStorage.getItem("p_max")
 }
-whitebot=0
+whitebot = 0
 b1 = [
     ["Tking", "", "", "", "", "", "", ""],
     ["Wpawn", "", "", "", "", "", "", ""],
@@ -45,12 +46,12 @@ function win1() {
         
     }
     bl_move();
-    $("#bt").attr("disabled",false)
+    $("#bt").attr("disabled", false)
 }
 
 function start_solve() {
-   // setInterval(function(){wb()},1000)
-   wb()
+    // setInterval(function(){wb()},1000)
+    wb()
 }
 p_dist = [1, 1, 1, 1, 1]
 
@@ -330,7 +331,7 @@ function find_possible(cor, moves) {
             moves1.push("b" + (n[0] + moves[i][0]) + "0" + (n[1] + moves[i][1]))
         }
     }
-    print([moves1,62957])
+    print([moves1, 62957])
     return moves1
 }
 
@@ -433,7 +434,7 @@ function coloring() {
         if (a % 2 !== 0) {
             color.style.backgroundColor = 'rgb(100, 75, 43)'
         }
-        if (getId == tg) {
+        if (getId == tg || $("#" + getId).text().trim() == "Tking" || (lm != "" && getId == lm)) {
             color.style.backgroundColor = "orange"
         }
         // if (a % 2 == 0) {
@@ -1143,7 +1144,9 @@ function choose_moves(BorW) {
         return 0;
     }
     chosen_move = best_move(list_of_moves)
-    
+    if (chosen_move[1] == tg) {
+        lm = chosen_move[0]
+    }
     move_piece_from_to_coords(chosen_move[0], chosen_move[1])
 }
 
