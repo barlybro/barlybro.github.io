@@ -1138,7 +1138,7 @@ function choose_moves(BorW) {
         }
         
     }
-    if (list_of_moves.length == 0 && numOfs != 1) {
+    if (list_of_moves.length == 0 && numOfKings != 1) {
         tog = 1;
         return 0;
     }
