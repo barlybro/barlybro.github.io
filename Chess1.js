@@ -3,17 +3,24 @@ function print(param) {
 }
 insert_board = false
 tg = "b601"
-p_max = 20//47
+if(localStorage.getItem("p_max")===null){
+    p_max=47
+localStorage.setItem('p_max',p_max)
+
+}
+else{
+    p_max=localStorage.getItem("p_max")
+}
 whitebot=0
 b1 = [
-    ["Bking", "", "", "", "", "", "", ""],
+    ["Tking", "", "", "", "", "", "", ""],
     ["Wpawn", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "Wking", ""],
+    ["", "", "", "", "", "", "", ""],
 ]
 
 function input_board() {
@@ -33,7 +40,7 @@ function t_board() {
 }
 
 function win1() {
-    if ($("#" + tg).text().trim() == "Bking".trim()) {
+    if ($("#" + tg).text().trim() == "Tking".trim()) {
         setTimeout(location.reload(), 1000);
         
     }
@@ -56,14 +63,14 @@ function rand_ar() {
 }
 
 function wb() {
-    find_bking()
+    find_tking()
 }
 
-function find_bking() {
+function find_tking() {
     tg2 = ""
     $(".box").each(
         function() {
-            if ($(this).text().trim() == "Bking") { tg2 = $(this).attr("id") }
+            if ($(this).text().trim() == "Tking") { tg2 = $(this).attr("id") }
         })
     //b505  607
     next1 = ""
@@ -338,8 +345,7 @@ function ar_sum(ar1) {
 }
 
 pieces = [
-    ["Wking", 1],
-    ["Bking", 1],
+    ["Tking", 1],
     ["Wqueen", p_dist[0]],
     ["Wbishop", p_dist[1]],
     ["Wknight", p_dist[2]],
@@ -395,8 +401,7 @@ else {
     t_board()
     rand_ar()
     pieces = [
-        ["Wking", 1],
-        ["Bking", 1],
+        ["Tking", 1],
         ["Wqueen", p_dist[0]],
         ["Wbishop", p_dist[1]],
         ["Wknight", p_dist[2]],
@@ -613,9 +618,7 @@ document.querySelectorAll('.box').forEach(item => {
             }
             
             // KING
-            
             if (item.innerText == `${toggle}king`) {
-                
                 
                 if (aside < 8) {
                     document.getElementById(`b${a + 1}`).style.backgroundColor = 'green'
@@ -927,8 +930,8 @@ document.querySelectorAll('.box').forEach(item => {
             whosTurn('W')
         }
         if (tog % 2 == 0) {
-            document.getElementById('tog').innerText = "Black's Turn"
-            whosTurn('B')
+            document.getElementById('tog').innerText = "King's Turn"
+            whosTurn('T')
         }
         
         reddish()
@@ -1106,7 +1109,7 @@ document.querySelectorAll('.box').forEach(ee => {
 
 function bl_move() {
     if (tog % 2 == 0) {
-        choose_moves('B')
+        choose_moves('T')
     }
 }
 
@@ -1135,7 +1138,7 @@ function choose_moves(BorW) {
         }
         
     }
-    if (list_of_moves.length == 0 && numOfKings != 1) {
+    if (list_of_moves.length == 0 && numOfs != 1) {
         tog = 1;
         return 0;
     }
