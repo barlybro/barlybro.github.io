@@ -350,6 +350,7 @@ function ar_sum(ar1) {
 
 pieces = [
     ["Tking", 1],
+    ["Bking", 1]
     ["Wqueen", p_dist[0]],
     ["Wbishop", p_dist[1]],
     ["Wknight", p_dist[2]],
@@ -411,13 +412,14 @@ else {
     t_board()
     rand_ar()
     pieces = [
-        ["Tking", 1],
-        ["Wqueen", p_dist[0]],
-        ["Wbishop", p_dist[1]],
-        ["Wknight", p_dist[2]],
-        ["Wrook", p_dist[3]],
-        ["Wpawn", p_dist[4]]
-    ]
+    ["Tking", 1],
+    ["Bking", 1]
+    ["Wqueen", p_dist[0]],
+    ["Wbishop", p_dist[1]],
+    ["Wknight", p_dist[2]],
+    ["Wrook", p_dist[3]],
+    ["Wpawn", p_dist[4]]
+]
     add_pieces()
 }
 insertImage()
