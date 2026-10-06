@@ -375,13 +375,11 @@ function add_pieces() {
     for (let i = 0; i < pieces.length; i++) {
         for (let j = 0; j < pieces[i][1]; j++) {
             pp1 = pieces[i][0];
-            print(pp1)
             if (pp1 == "Wpawn" && poss1[0][1] == "8") {
                 pp1 = "Wqueen";
             }
             $("#" + poss1[0]).text(pp1);
             poss1.splice(0, 1);
-            print(2)
         }
     }
 }
@@ -1151,7 +1149,7 @@ function choose_moves(BorW) {
         }
         
     }
-    if (list_of_moves.length == 0 && numOfKings != 1) {
+    if (list_of_moves.length == 0) {
         tog = 1;
         return 0;
     }
