@@ -364,6 +364,12 @@ function add_pieces() {
             poss1.push("b" + i + "0" + j);
         }
     }
+    
+    const index = poss1.indexOf(tg);
+    if (index > -1) { // only splice array when item is found
+        poss1.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    
     poss1.sort(() => Math.random() - 0.5);
     
     for (let i = 0; i < pieces.length; i++) {
