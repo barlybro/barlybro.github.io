@@ -12,7 +12,7 @@ if (localStorage.getItem("p_max") === null) {
 else {
     p_max = localStorage.getItem("p_max")
 }
-$("#n1").attr("value",p_max)
+$("#n1").attr("value", p_max)
 whitebot = 0
 b1 = [
     ["Tking", "", "", "", "", "", "", ""],
@@ -54,8 +54,9 @@ function start_solve() {
     // setInterval(function(){wb()},1000)
     wb()
 }
-p_dist = [0, 0, 0, 
-0, 0]
+p_dist = [0, 0, 0,
+    0, 0
+]
 
 function rand_ar() {
     ab = ar_sum(p_dist)
@@ -571,9 +572,6 @@ document.querySelectorAll('.box').forEach(item => {
                     
                     if (aup !== 200 && document.getElementById(`b${a + 100}`).innerText.length == 0) {
                         document.getElementById(`b${a + 100}`).style.backgroundColor = 'green'
-                    }
-                    if (aup !== 100 && document.getElementById(`b${a - 100}`).innerText.length == 0) {
-                        document.getElementById(`b${a - 100}`).style.backgroundColor = 'green'
                     }
                     
                     if (aside < 8 && document.getElementById(`b${a + 100 + 1}`).innerText.length !== 0) {
