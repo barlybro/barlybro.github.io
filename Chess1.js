@@ -1,7 +1,7 @@
 function print(param) {
     console.log(param)
 }
-insert_board = false
+insert_board = true
 tg = "b601"
 lm = ""
 if (localStorage.getItem("p_max") === null) {
@@ -15,14 +15,14 @@ else {
 $("#n1").attr("value", p_max)
 whitebot = 0
 b1 = [
-    ["Tking", "", "", "", "", "", "", ""],
-    ["Wpawn", "", "", "", "", "", "", ""],
+    ["Brook", "Bknight", "Bbishop", "Bqueen", "Bking", "Bbishop", "Bknight", "Brook"],
+    ["Brook", "Bknight", "Bbishop", "Bqueen", "Bqueen", "Bbishop", "Bknight", "Brook"],
+    ["Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn"],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
+    ["Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn"],
+    ["Wrook", "Wknight", "Wbishop", "Wqueen", "Wqueen", "Wbishop", "Wknight", "Wrook"],
+    ["Wrook", "Wknight", "Wbishop", "Wqueen", "Tking", "Wbishop", "Wknight", "Wrook"]
 ]
 
 function input_board() {
@@ -34,11 +34,28 @@ function input_board() {
             }
         }
     }
+    t_board()
 }
 
 
 function t_board() {
-    tg = "b" + (Math.floor(Math.random() * 8) + 1) + 0 + (Math.floor(Math.random() * 8) + 1);
+    if (insert_board) {
+        tg5=""
+        poss1=[]
+        $(".box").each(
+                function() {
+                    if ($(this).text().trim() == "Tking") { tg5 = $(this).attr("id") }
+                })
+        for (let i = 1; i < 9; i++) {
+        for (let j = 1; j < 9; j++) {
+            poss1.push("b" + i + "0" + j);
+        }
+        i3=poss1.indexOf(tg5)
+        poss1.splice(i3,1)
+        tg=poss1[Math.floor(Math.random() * (poss1.length - 1))]
+    }
+    }
+    else { tg = "b" + (Math.floor(Math.random() * 8) + 1) + 0 + (Math.floor(Math.random() * 8) + 1); }
 }
 
 function win1() {
@@ -411,14 +428,14 @@ else {
     t_board()
     rand_ar()
     pieces = [
-    ["Tking", 1],
-    ["Bking", 1],
-    ["Wqueen", p_dist[0]],
-    ["Wbishop", p_dist[1]],
-    ["Wknight", p_dist[2]],
-    ["Wrook", p_dist[3]],
-    ["Wpawn", p_dist[4]]
-]
+        ["Tking", 1],
+        ["Bking", 1],
+        ["Wqueen", p_dist[0]],
+        ["Wbishop", p_dist[1]],
+        ["Wknight", p_dist[2]],
+        ["Wrook", p_dist[3]],
+        ["Wpawn", p_dist[4]]
+    ]
     add_pieces()
 }
 insertImage()
@@ -568,7 +585,7 @@ document.querySelectorAll('.box').forEach(item => {
             if (item.innerText == `${toggle}pawn`) {
                 item.style.backgroundColor = 'pink'
                 
-                if (tog % 2 !== 0 && aup < 800) {
+                if (tog % 3 == 1 && aup < 800) {
                     
                     if (aup == 200 && document.getElementById(`b${a + 100}`).innerText.length == 0) {
                         document.getElementById(`b${a + 100}`).style.backgroundColor = 'green'
@@ -604,7 +621,7 @@ document.querySelectorAll('.box').forEach(item => {
                     // }
                 }
                 
-                if (tog % 2 == 0 && aup > 100) {
+                if (tog % 3 == 0 && aup > 100) {
                     
                     if (aup == 700 && document.getElementById(`b${a - 100}`).innerText.length == 0) {
                         document.getElementById(`b${a - 100}`).style.backgroundColor = 'green'
@@ -630,7 +647,6 @@ document.querySelectorAll('.box').forEach(item => {
             
             // KING
             if (item.innerText == `${toggle}king`) {
-                
                 if (aside < 8) {
                     document.getElementById(`b${a + 1}`).style.backgroundColor = 'green'
                     
@@ -683,6 +699,7 @@ document.querySelectorAll('.box').forEach(item => {
                 }
                 
                 item.style.backgroundColor = 'pink'
+                
                 
             }
             
@@ -936,17 +953,19 @@ document.querySelectorAll('.box').forEach(item => {
         
         // Toggling the turn
         
-        if (tog % 2 !== 0) {
+        if (tog % 3 == 1) {
             document.getElementById('tog').innerText = "White's Turn"
             whosTurn('W')
         }
-        if (tog % 2 == 0) {
+        if (tog % 3 == 2) {
             document.getElementById('tog').innerText = "King's Turn"
             whosTurn('T')
         }
-        
+        if (tog % 3 == 0) {
+            document.getElementById('tog').innerText = "Black's Turn"
+            whosTurn('B')
+        }
         reddish()
-        
         
         // winning()
         
@@ -1119,7 +1138,8 @@ document.querySelectorAll('.box').forEach(ee => {
 })
 
 function bl_move() {
-    if (tog % 2 == 0) {
+    if (tog % 3 == 2) {
+        print(5)
         choose_moves('T')
     }
 }
@@ -1150,7 +1170,7 @@ function choose_moves(BorW) {
         
     }
     if (list_of_moves.length == 0) {
-        tog = 1;
+        tog += 1;
         return 0;
     }
     chosen_move = best_move(list_of_moves)
