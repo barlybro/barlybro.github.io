@@ -350,7 +350,7 @@ function ar_sum(ar1) {
 
 pieces = [
     ["Tking", 1],
-    ["Bking", 1]
+    ["Bking", 1],
     ["Wqueen", p_dist[0]],
     ["Wbishop", p_dist[1]],
     ["Wknight", p_dist[2]],
@@ -372,15 +372,16 @@ function add_pieces() {
     }
     
     poss1.sort(() => Math.random() - 0.5);
-    
     for (let i = 0; i < pieces.length; i++) {
         for (let j = 0; j < pieces[i][1]; j++) {
             pp1 = pieces[i][0];
+            print(pp1)
             if (pp1 == "Wpawn" && poss1[0][1] == "8") {
                 pp1 = "Wqueen";
             }
             $("#" + poss1[0]).text(pp1);
             poss1.splice(0, 1);
+            print(2)
         }
     }
 }
@@ -413,7 +414,7 @@ else {
     rand_ar()
     pieces = [
     ["Tking", 1],
-    ["Bking", 1]
+    ["Bking", 1],
     ["Wqueen", p_dist[0]],
     ["Wbishop", p_dist[1]],
     ["Wknight", p_dist[2]],
