@@ -15,9 +15,9 @@ else {
 $("#n1").attr("value", p_max)
 whitebot = 0
 b1 = [
-    ["Brook", "Bknight", "Bbishop", "Bqueen", "Bking", "Bbishop", "Bknight", "Brook"],
-    ["Brook", "Bknight", "Bbishop", "Bqueen", "Bqueen", "Bbishop", "Bknight", "Brook"],
-    ["Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn", "Bpawn"],
+    ["Wrook", "Wknight", "Wbishop", "Wqueen", "Wqueen", "Wbishop", "Wknight", "Wrook"],
+    ["Wrook", "Wknight", "Wbishop", "Wqueen", "Wqueen", "Wbishop", "Wknight", "Wrook"],
+    ["Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn"],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn", "Wpawn"],
@@ -40,20 +40,20 @@ function input_board() {
 
 function t_board() {
     if (insert_board) {
-        tg5=""
-        poss1=[]
+        tg5 = ""
+        poss1 = []
         $(".box").each(
-                function() {
-                    if ($(this).text().trim() == "Tking") { tg5 = $(this).attr("id") }
-                })
+            function() {
+                if ($(this).text().trim() == "Tking") { tg5 = $(this).attr("id") }
+            })
         for (let i = 1; i < 9; i++) {
-        for (let j = 1; j < 9; j++) {
-            poss1.push("b" + i + "0" + j);
+            for (let j = 1; j < 9; j++) {
+                poss1.push("b" + i + "0" + j);
+            }
+            i3 = poss1.indexOf(tg5)
+            poss1.splice(i3, 1)
+            tg = poss1[Math.floor(Math.random() * (poss1.length - 1))]
         }
-        i3=poss1.indexOf(tg5)
-        poss1.splice(i3,1)
-        tg=poss1[Math.floor(Math.random() * (poss1.length - 1))]
-    }
     }
     else { tg = "b" + (Math.floor(Math.random() * 8) + 1) + 0 + (Math.floor(Math.random() * 8) + 1); }
 }
@@ -585,7 +585,7 @@ document.querySelectorAll('.box').forEach(item => {
             if (item.innerText == `${toggle}pawn`) {
                 item.style.backgroundColor = 'pink'
                 
-                if (tog % 3 == 1 && aup < 800) {
+                if (tog % 2 == 1 && aup < 800) {
                     
                     if (aup == 200 && document.getElementById(`b${a + 100}`).innerText.length == 0) {
                         document.getElementById(`b${a + 100}`).style.backgroundColor = 'green'
@@ -621,7 +621,7 @@ document.querySelectorAll('.box').forEach(item => {
                     // }
                 }
                 
-                if (tog % 3 == 0 && aup > 100) {
+                if (tog % 2 == 0 && aup > 100) {
                     
                     if (aup == 700 && document.getElementById(`b${a - 100}`).innerText.length == 0) {
                         document.getElementById(`b${a - 100}`).style.backgroundColor = 'green'
@@ -953,15 +953,15 @@ document.querySelectorAll('.box').forEach(item => {
         
         // Toggling the turn
         
-        if (tog % 3 == 1) {
+        if (tog % 2 == 1) {
             document.getElementById('tog').innerText = "White's Turn"
             whosTurn('W')
         }
-        if (tog % 3 == 2) {
+        if (tog % 2 == 0) {
             document.getElementById('tog').innerText = "King's Turn"
             whosTurn('T')
         }
-        if (tog % 3 == 0) {
+        if (false) {
             document.getElementById('tog').innerText = "Black's Turn"
             whosTurn('B')
         }
@@ -1138,7 +1138,7 @@ document.querySelectorAll('.box').forEach(ee => {
 })
 
 function bl_move() {
-    if (tog % 3 == 2) {
+    if (tog % 2 == 0) {
         print(5)
         choose_moves('T')
     }
