@@ -1,0 +1,10 @@
+.pics{
+}
+.row{
+  display: flex;
+  padding: 0 4px;
+  flex-direction: row;
+}
+img{
+  width: 25%;
+}
