@@ -49,7 +49,7 @@ function display() {
 function draw() {
   gen_deck()
   card_hand = []
-  nums = gri(1, 3)
+  nums = gri(2, 3)
   for (let i = 0; i < nums; i++) {
     card_hand = card_hand.concat(get1())
   }
