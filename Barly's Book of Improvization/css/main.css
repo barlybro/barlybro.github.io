@@ -5,12 +5,12 @@ span {
   padding-top: 30px;
   text-align: center;
 }
-li a:visited {
+a:visited {
   text-decoration: none;
   color: black;
 }
 
-li a{
+a{
   color: black;
 }
 
