@@ -47,6 +47,7 @@ function display() {
 }
 
 function draw() {
+  gen_deck()
   card_hand = []
   nums = gri(1, 3)
   for (let i = 0; i < nums; i++) {
@@ -63,6 +64,7 @@ function add1() {
 }
 
 function draw1() {
+  gen_deck()
   card_hand = []
   card_hand = card_hand.concat(get1())
   display()
