@@ -35,6 +35,7 @@ function green(ci1) {
   $("#" + ci1).css("background-color", "#32cd32")
   $("#" + ci1).attr("onClick", "move(this.id)")
 }
+
 pc_orig = ""
 pn_orig = ""
 
@@ -324,7 +325,6 @@ function gen_g() {
       eval_move()
     }
   }
-  
 }
 
 function valid(ci1) {
