@@ -1,4 +1,4 @@
-aa = ($(".bd").width() - 2-16) / 8
+aa = ($(".bd").width() - 2 - 16) / 8
 $(".bd ul li div").attr("style", "width: " + aa + "px").attr("style", "height: " + aa + "px")
 
 // Pieces are K, Q, R, B, N and p
@@ -59,6 +59,9 @@ function gen_g() {
       if ($("#" + ni).text() == "") {
         green(ni)
       }
+      else {
+        eval_move()
+      }
     }
   }
   if (pn_orig == "N") {
@@ -72,21 +75,28 @@ function gen_g() {
       [-2, 1],
       [-1, 2]
     ]
+    c2 = 0
     for (let i = 0; i < 8; i++) {
       ni = i_m(pc_orig, n1[i])
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
       }
+    }
+    if (c2 == 0) {
+      eval_move()
     }
   }
   if (pn_orig == "B") {
+    c2 = 0
     for (let i = 1; i <= 7; i++) {
       ni = i_m(pc_orig, [i, i])
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -98,6 +108,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -109,6 +120,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -120,19 +132,25 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
         }
       }
+    }
+    if (c2 == 0) {
+      eval_move()
     }
   }
   if (pn_orig == "R") {
+    c2 = 0
     for (let i = 1; i <= 7; i++) {
       ni = i_m(pc_orig, [0, i])
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -144,6 +162,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -155,6 +174,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -166,19 +186,25 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
         }
       }
     }
+    if (c2 == 0) {
+      eval_move()
+    }
   }
   if (pn_orig == "Q") {
+    c2 = 0
     for (let i = 1; i <= 7; i++) {
       ni = i_m(pc_orig, [i, i])
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -190,6 +216,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -201,6 +228,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -212,6 +240,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -223,6 +252,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -234,6 +264,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -245,6 +276,7 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
@@ -256,14 +288,18 @@ function gen_g() {
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
         else {
           break
         }
       }
     }
+    if (c2 == 0) {
+      eval_move()
+    }
   }
-    if (pn_orig == "K") {
+  if (pn_orig == "K") {
     n1 = [
       [0, 1],
       [1, 1],
@@ -274,16 +310,21 @@ function gen_g() {
       [-1, 0],
       [-1, 1]
     ]
+    c2 = 0
     for (let i = 0; i < 8; i++) {
       ni = i_m(pc_orig, n1[i])
       if (valid(ni)) {
         if ($("#" + ni).text() == "") {
           green(ni)
+          c2++
         }
       }
     }
+    if (c2 == 0) {
+      eval_move()
+    }
   }
-
+  
 }
 
 function valid(ci1) {
