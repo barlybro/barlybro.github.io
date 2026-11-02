@@ -1,0 +1,42 @@
+html,
+body {
+  width: 100%;
+}
+
+#board {
+  width: 90%;
+  margin: auto;
+  
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.bd ul li {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  font-size: 0px;
+}
+
+.bd ul li div {
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: 1px;
+}
+
+.b1 {
+  background-color: orange;
+}
+
+.b2 {
+  background-color: #FFCB82;
+}
+
+img {
+  max-width: 100%;
+}
